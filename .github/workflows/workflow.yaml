@@ -13,9 +13,9 @@ jobs:
     - name: Docker build
       uses: mr-smithers-excellent/docker-build-push@v5
       id: build
-      directory: loadtest
-      dockerfile: loadtest/Dockerfile
       with:
+        directory: loadtest
+        dockerfile: loadtest/Dockerfile
         image: ${{ env.IMAGENAME }}
         registry: ${{ env.REGISTRY }}
         username: ${{ github.repository_owner }}
