@@ -62,6 +62,7 @@ func getLndConnection(cfg *lndConfig) (*lndConnection, error) {
 		if resp.SyncedToChain {
 			break
 		}
+		logger.Infof("LND not synced to chain yet")
 		time.Sleep(time.Second)
 	}
 	logger.Infow("Connected to lnd", "host", cfg.RpcHost)
