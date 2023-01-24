@@ -56,19 +56,15 @@ func getLndConnection(cfg *lndConfig) (*lndConnection, error) {
 	logger.Infow("Attempting to connect to lnd")
 	for {
 		resp, err := senderClient.GetInfo(context.Background(), &lnrpc.GetInfoRequest{})
-		if err == nil {
-			if !resp.SyncedToChain {
-				time.Sleep(time.Second)
-
-				continue
-			}
-
-			logger.Infow("Connected to lnd", "key", resp.IdentityPubkey)
+		if err != nil {
+			logger.Fatalf("Can't connect to LND: error %s host %s", err.Error(), cfg.RpcHost)
+		}
+		if resp.SyncedToChain {
 			break
 		}
-
 		time.Sleep(time.Second)
 	}
+	logger.Infow("Connected to lnd", "host", cfg.RpcHost)
 
 	return &lndConnection{
 		conn:            conn,
