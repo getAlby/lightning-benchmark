@@ -1,6 +1,7 @@
 package main
 
 import (
+	"math/rand"
 	"time"
 
 	"github.com/btcsuite/btcd/chaincfg"
@@ -12,6 +13,15 @@ import (
 var setupCommand = cli.Command{
 	Name:   "setup",
 	Action: setup,
+}
+var letters = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+
+func randSeq(n int) string {
+	b := make([]rune, n)
+	for i := range b {
+		b[i] = letters[rand.Intn(len(letters))]
+	}
+	return string(b)
 }
 
 func getBitcoindConnection(cfg *bitcoindConfig) (*rpcclient.Client, error) {
@@ -68,7 +78,7 @@ func setup(_ *cli.Context) error {
 	}
 
 	log.Infow("Creating bitcoind wallet")
-	_, err = bitcoindConn.CreateWallet("")
+	_, err = bitcoindConn.CreateWallet(randSeq(10))
 	if err != nil {
 		return err
 	}
