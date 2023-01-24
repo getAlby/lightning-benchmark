@@ -101,7 +101,7 @@ func setup(_ *cli.Context) error {
 	if err != nil {
 		return err
 	}
-	_, err = bitcoindConn.GenerateToAddress(1, senderAddr, nil)
+	_, err = bitcoindConn.GenerateToAddress(100, senderAddr, nil)
 	if err != nil {
 		return err
 	}
