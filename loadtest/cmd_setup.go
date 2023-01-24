@@ -2,6 +2,7 @@ package main
 
 import (
 	"math/rand"
+	"strings"
 	"time"
 
 	"github.com/btcsuite/btcd/chaincfg"
@@ -131,7 +132,7 @@ func setup(_ *cli.Context) error {
 
 	log.Infow("Connecting peers")
 	err = senderClient.Connect(receiverKey, cfg.Receiver.Host)
-	if err != nil {
+	if err != nil && !strings.Contains(err.Error(), "already connected") {
 		return err
 	}
 
