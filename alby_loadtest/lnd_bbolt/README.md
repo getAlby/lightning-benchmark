@@ -25,4 +25,4 @@ requests:
 - LND-1: db size 5.5GB, restart time no compaction 14m
 - LND-2: db size 1.6GB, restart time no compaction 4m
 
-After restarting LND-1 a second time (without db compaction), all but 2 channels were (force-?) closed automatically, and the 2 remaining channels were inactive.
+After restarting LND-1 a second time (without db compaction), all but 2 channels were force-closed automatically, and the 2 remaining channels were inactive. Search the logs for `[INF] CNCT` to look at the ChannelArbitrator logs (=the part of LND that handles closes).
