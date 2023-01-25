@@ -158,7 +158,7 @@ func setup(_ *cli.Context) error {
 		if err != nil {
 			return err
 		}
-		if activeChannels == cfg.Channels {
+		if activeChannels >= cfg.Channels {
 			break
 		}
 		time.Sleep(time.Second)
