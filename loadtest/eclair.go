@@ -310,7 +310,24 @@ func (l *eclairConnection) waitForSent(id string) error {
 }
 
 func (l *eclairConnection) SendKeysend(destination string, amtMsat int64) error {
-	return errors.New("not implemented")
+	respBytes, err := l.call("sendtonode", map[string]string{
+		"nodeId":     destination,
+		"amountMsat": strconv.FormatInt(amtMsat, 10),
+	})
+	if err != nil {
+		return err
+	}
+
+	var id string
+	err = json.Unmarshal(respBytes, &id)
+	if err != nil {
+		log.Errorw("json deserialize error",
+			"err", err, "data", string(respBytes))
+
+		return err
+	}
+
+	return l.waitForSent(id)
 }
 
 func (l *eclairConnection) HasFunds() error {
