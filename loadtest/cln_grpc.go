@@ -110,8 +110,12 @@ func (cln *ClnGrpcClient) NewAddress() (string, error) {
 }
 
 func (cln *ClnGrpcClient) OpenChannel(peerKey string, amtSat int64) error {
-	_, err := cln.client.FundChannel(context.Background(), &clightning.FundchannelRequest{
-		Id: []byte(peerKey),
+	id, err := hex.DecodeString(peerKey)
+	if err != nil {
+		return err
+	}
+	_, err = cln.client.FundChannel(context.Background(), &clightning.FundchannelRequest{
+		Id: id,
 		Amount: &clightning.AmountOrAll{
 			Value: &clightning.AmountOrAll_Amount{
 				Amount: &clightning.Amount{
@@ -140,8 +144,12 @@ func (cln *ClnGrpcClient) SendPayment(invoice string) error {
 }
 
 func (cln *ClnGrpcClient) SendKeysend(destination string, amtMsat int64) error {
-	_, err := cln.client.KeySend(context.Background(), &clightning.KeysendRequest{
-		Destination: []byte(destination),
+	id, err := hex.DecodeString(destination)
+	if err != nil {
+		return err
+	}
+	_, err = cln.client.KeySend(context.Background(), &clightning.KeysendRequest{
+		Destination: id,
 		AmountMsat: &clightning.Amount{
 			Msat: uint64(amtMsat),
 		},
