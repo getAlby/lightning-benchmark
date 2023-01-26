@@ -28,6 +28,8 @@ func getNodeConnection(cfg *clientConfig) (nodeInterface, error) {
 	case cfg.Clightning != nil:
 		return getClightningConnection(cfg.Clightning)
 
+	case cfg.ClightningGrpc != nil:
+		return getClightningGrpcConnection(cfg.ClightningGrpc)
 	case cfg.Eclair != nil:
 		return getEclairConnection(cfg.Eclair)
 	}

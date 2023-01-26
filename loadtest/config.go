@@ -18,10 +18,18 @@ type clightningConfig struct {
 	RpcHost string `yaml:"rpcHost"`
 }
 
+type clightningGrpcConfig struct {
+	RpcHost       string `yaml:"rpcHost"`
+	CaPath        string `yaml:"caPath"`
+	ClientPemPath string `yaml:"clientPemPath"`
+	ClientKeyPath string `yaml:"clientKeyPath"`
+}
+
 type clientConfig struct {
-	Lnd        *lndConfig        `yaml:"lnd"`
-	Clightning *clightningConfig `yaml:"clightning"`
-	Eclair     *eclairConfig     `yaml:"eclair"`
+	Lnd            *lndConfig            `yaml:"lnd"`
+	Clightning     *clightningConfig     `yaml:"clightning"`
+	ClightningGrpc *clightningGrpcConfig `yaml:"clightningGrpc"`
+	Eclair         *eclairConfig         `yaml:"eclair"`
 
 	Host string `yaml:"host"`
 }
