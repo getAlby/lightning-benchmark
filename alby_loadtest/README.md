@@ -27,28 +27,28 @@ For testing, we used the same [Go application](https://github.com/getAlby/lightn
 # LND + BBolt DB
 We map the throughput (transactions per second) and the average latency as a function of the nr. of payments processed in the run.
 
-![](lnd_bbolt.png)
-![](lnd_bbolt_latency.png)
+![](https://github.com/getAlby/lightning-benchmark/raw/master/alby_loadtest/lnd_bbolt.png)
+![](https://github.com/getAlby/lightning-benchmark/raw/master/alby_loadtest/lnd_bbolt_latency.png)
 
 We see that this specific setup can make around 22 TPS with a latency of about 5 seconds. We also wanted to look at the behaviour of LND after doing the load test of about 1M payments, and so we restarted both nodes to see how long that would take. We also tried compaction even though it is not very useful in this case (it won't lead to a much smaller database as we didn't close any channels beforehand).
 - LND-1: db size 5.5GB, restart time with compaction 22 minutes
 - LND-1: db size 5.5GB, restart time no compaction 14 minutes
 - LND-2: db size 1.6GB, restart time no compaction 4 minutes
 # LND + PG DB
-![](lnd_pg.png)
-![](lnd_pg_latency.png)
+![](https://github.com/getAlby/lightning-benchmark/raw/master/alby_loadtest/lnd_pg.png)
+![](https://github.com/getAlby/lightning-benchmark/raw/master/alby_loadtest/lnd_pg_latency.png)
 
 We see that LND with a Postgres database backend performs significantly worse in terms of throughput and latency, which is why we didn't let it run for the same amount as transactions as the previous run as that would have taken a much longer time. Also worth noting is that some payments actually failed, which did not happen in the run with the bbolt backend. However, startup time is now basically instant, as opening the main database happens in a fraction of a second.
 # Eclair + SQLite DB
-![](eclair_sqlite.png)
-![](eclair_sqlite_latency.png)
+![](https://github.com/getAlby/lightning-benchmark/raw/master/alby_loadtest/eclair_sqlite.png)
+![](https://github.com/getAlby/lightning-benchmark/raw/master/alby_loadtest/eclair_sqlite_latency.png)
 
 We see Eclair + an SQlite database do about 35 TPS with about a 2 second latency.
 # Eclair + PG DB
-![](eclair_pg.png)
-![](eclair_pg_latency.png)
+![](https://github.com/getAlby/lightning-benchmark/raw/master/alby_loadtest/eclair_pg.png)
+![](https://github.com/getAlby/lightning-benchmark/raw/master/alby_loadtest/eclair_pg_latency.png)
 
 We see Eclair + a Postgres database do about 30 TPS with about a 3 second latency.
 # Summary
-![](summary_tps.png)
-![](summary_latency.png)
+![](https://github.com/getAlby/lightning-benchmark/raw/master/alby_loadtest/summary_tps.png)
+![](https://github.com/getAlby/lightning-benchmark/raw/master/alby_loadtest/summary_latency.png)
