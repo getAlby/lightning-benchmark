@@ -1,7 +1,7 @@
 import pandas as pd
 from matplotlib import pyplot as plt
-filename = "lnd_pg"
-titleprefix = "LND(PG)"
+filename = "eclair_pg"
+titleprefix = "Eclair(PG)"
 
 plt.rcParams["figure.figsize"] = [7.00, 3.50]
 plt.rcParams["figure.autolayout"] = True
